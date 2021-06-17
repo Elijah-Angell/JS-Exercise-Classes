@@ -47,7 +47,7 @@ class Airplane {
       this.age = age;
       this.stomach = [];
     }
-    eat(someFood) {
+    eat(someFood,) {
       if(this.stomach.length <= 10){
         this.stomach.push(someFood);
       }
@@ -82,10 +82,18 @@ class Airplane {
       this.odometer = 0;
     }
     fill(gallons){
-      return tank === gallons
+      this.tank = this.tank + gallons;
     }
     drive(distance){
-
+      const driveableMiles = this.tank * this.milesPerGallon;
+      if(distance <= driveableMiles){
+        this.odometer = this.odometer + distance;
+        this.tank = this.tank - (distance / this.milesPerGallon );
+      }else{
+        this.odometer = this.odometer + driveableMiles;
+        this.tank = 0;
+        return `I ran out of fuel at ${this.odometer} miles `;
+      }
     }
   }
   
@@ -195,8 +203,8 @@ class Airplane {
      standUp(channel){
        return `${this.name} announces to ${channel}, @channel standy times!`
      }
-     debugsCode(subject){
-      return `${this.name} debugs ${this.name}'s code on ${subject}`
+     debugsCode(student,subject){
+      return `${this.name} debugs ${student.name}'s code on ${subject}`
      }
  }
   /*
